@@ -9,6 +9,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from operator import itemgetter
 import json
 import psycopg2
+from django.contrib.auth import authenticate, login, logout
 from django.http.response import JsonResponse, HttpResponse
 from rest_framework.parsers import JSONParser
 from .serializers import MessageSerializer
@@ -81,72 +82,102 @@ def message_view(request, sender, receiver):
             
 # host="managesys.herokuapp.com",user="managesys",password="managesys",database="socman"
 
-def login(request):
-    con=psycopg2.connect('dbname=socman user=managesys host=managesys.herokuapp.com')
-    cursor=con.cursor()
-    con2=psycopg2.connect('dbname=socman user=managesys host=managesys.herokuapp.com')
-    cursor2=con2.cursor()
-    con3=psycopg2.connect('dbname=socman user=managesys host=managesys.herokuapp.com')
-    cursor3=con3.cursor()
-    con4=psycopg2.connect('dbname=socman user=managesys host=managesys.herokuapp.com')
-    cursor4=con4.cursor()
-    sqlcmd="SELECT uname FROM manageapp_user_reg"
-    sqlcmd2="SELECT password FROM manageapp_user_reg"
-    sqlcmd3="SELECT uname FROM manageapp_guard_reg"
-    sqlcmd4="SELECT password FROM manageapp_guard_reg"
-    cursor.execute(sqlcmd)
-    cursor2.execute(sqlcmd2)
-    cursor3.execute(sqlcmd3)
-    cursor4.execute(sqlcmd4)
+def login_user(request):
 
-    uu=[]
-    up=[]
-    gu=[]
-    gp=[]
-    
-    for i in cursor:
-        uu.append(i)
-    for i in cursor2:    
-        up.append(i)
-    for i in cursor3:    
-        gu.append(i)
-    for i in cursor4:    
-        gp.append(i)
-       
-    res=list(map(itemgetter(0),uu))
-    res2=list(map(itemgetter(0),up))
-    res3=list(map(itemgetter(0),gu))
-    res4=list(map(itemgetter(0),gp))
-    print(res)
-    print(res3)
-    if request.method=='POST':
-        username=request.POST['Username']
-        password=request.POST['password']
-        i=j=0
-        k=len(res)
-        k2=len(res3)
-        if username=='0' and password=='0':
-            return homeadmin(request)
-        
-        else:
-            while i<k:
-                print(res[i])
-                if res[i]==username and res2[i]==password:
-                    print(res[i])
-                    return homeuser(request, username)
-                    break
-                i+=1   
-            while j<k2:
-                print(res3[j])
+    if request.method == 'POST':
 
-                if res3[j]==username and res4[j]==password:
-                    print(res3[j])
-                    
-                    return homeguard(request,username)
-                    break
-                j+=1
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        try:
+            obj=user_reg.objects.get(uname=username,password=password)
+            return homeuser(request, username)
+        except:
+            try:
+                obj=guard_reg.objects.get(uname=username,password=password)
+                return homeguard(request,username)
+            except:
+                return render(request, 'login.html')
 
     return render(request, 'login.html')
+        # user = authenticate(username=username, password=password)
+
+        # if user:
+        #     login(request, user)
+        #     return redirect('home')
+
+        # else:
+        #     messages.error(request, 'Username or password is not valid!')
+        #     return redirect('login_user')
+
+    return render(request, 'user/login.html') 
+
+# def login(request):
+#     con=psycopg2.connect('dbname=socman user=managesys host=managesys.herokuapp.com')
+#     cursor=con.cursor()
+#     con2=psycopg2.connect('dbname=socman user=managesys host=managesys.herokuapp.com')
+#     cursor2=con2.cursor()
+#     con3=psycopg2.connect('dbname=socman user=managesys host=managesys.herokuapp.com')
+#     cursor3=con3.cursor()
+#     con4=psycopg2.connect('dbname=socman user=managesys host=managesys.herokuapp.com')
+#     cursor4=con4.cursor()
+#     sqlcmd="SELECT uname FROM manageapp_user_reg"
+#     sqlcmd2="SELECT password FROM manageapp_user_reg"
+#     sqlcmd3="SELECT uname FROM manageapp_guard_reg"
+#     sqlcmd4="SELECT password FROM manageapp_guard_reg"
+#     cursor.execute(sqlcmd)
+#     cursor2.execute(sqlcmd2)
+#     cursor3.execute(sqlcmd3)
+#     cursor4.execute(sqlcmd4)
+
+#     uu=[]
+#     up=[]
+#     gu=[]
+#     gp=[]
+    
+#     for i in cursor:
+#         uu.append(i)
+#     for i in cursor2:    
+#         up.append(i)
+#     for i in cursor3:    
+#         gu.append(i)
+#     for i in cursor4:    
+#         gp.append(i)
+       
+#     res=list(map(itemgetter(0),uu))
+#     res2=list(map(itemgetter(0),up))
+#     res3=list(map(itemgetter(0),gu))
+#     res4=list(map(itemgetter(0),gp))
+#     print(res)
+#     print(res3)
+#     if request.method=='POST':
+#         username=request.POST['Username']
+#         password=request.POST['password']
+#         i=j=0
+#         k=len(res)
+#         k2=len(res3)
+#         if username=='0' and password=='0':
+#             return homeadmin(request)
+        
+#         else:
+#             while i<k:
+#                 print(res[i])
+#                 if res[i]==username and res2[i]==password:
+#                     print(res[i])
+#                     return homeuser(request, username)
+#                     break
+#                 i+=1   
+#             while j<k2:
+#                 print(res3[j])
+
+#                 if res3[j]==username and res4[j]==password:
+#                     print(res3[j])
+                    
+#                     return homeguard(request,username)
+#                     break
+#                 j+=1
+
+#     return render(request, 'login.html')
 
 
 def signup(request):
