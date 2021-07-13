@@ -3,7 +3,7 @@
 This Django aap is for your society management.
 
 ## Deploy on Heroku
-https://socmansys.herokuapp.com/
+https://managesys.herokuapp.com/
 
 ### Features:
 * Chat between members & guard
@@ -14,7 +14,7 @@ https://socmansys.herokuapp.com/
 * Complaint box
 
 ### How to run?
-* git clone https://github.com/Rushijaviya/Socmansys.git
+* git clone https://github.com/Rushijaviya/managesys.git
 
 * cd managesys
 
