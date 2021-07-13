@@ -27,7 +27,7 @@ SECRET_KEY = '&4fo50_rpkzn1@56+#ys)&ja(@yy2#06+qep62u_fzdd*@82iw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['managesys.herokuapp.com']
+ALLOWED_HOSTS = ['https://managesys.herokuapp.com/']
 
 
 # Application definition
@@ -128,7 +128,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATICFILES_DIRS = ['F:\Code\manage\managesys\static',]
+# STATICFILES_DIRS = ['managesys\static',]
+
 STATIC_ROOT =os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
 
