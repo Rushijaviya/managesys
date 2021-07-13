@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-# import django_heroku
+import django_heroku
 from pathlib import Path
 import os
 import psycopg2
@@ -27,11 +27,10 @@ SECRET_KEY = '&4fo50_rpkzn1@56+#ys)&ja(@yy2#06+qep62u_fzdd*@82iw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['managesys.herokuapp.com']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'manageapp',
     'django.contrib.admin',
@@ -40,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'widget_tweaks',
-    # 'rest_framework',
+    'widget_tweaks',
+    'rest_framework',
     
 ]
 
@@ -53,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware'
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'managesys.urls'
@@ -129,7 +128,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATICFILES_DIRS = ['F:\Code\manage\managesys\static', ]
+STATICFILES_DIRS = ['C:\Users\Rushi\OneDrive\Desktop\Socmansys-main\static', ]
 STATIC_ROOT =os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
 
@@ -145,4 +144,4 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
