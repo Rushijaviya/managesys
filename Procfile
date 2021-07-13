@@ -1,0 +1,1 @@
+web: gunicorn managesys.wsgi --log-file -
