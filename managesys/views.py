@@ -399,7 +399,7 @@ def userreg(request):
             obj.save()
 
             print("The data is store")
-            return redirect('http://localhost:8000')
+            return redirect('index')
             # return render(request, 'login.html')
     return render(request, 'Sign_up_user.html')
 
@@ -425,7 +425,7 @@ def guardreg(request):
             obj.sr=uname
             obj.save()
             print("The data is store")
-            return redirect('http://localhost:8000')
+            return redirect('index')
             # return render(request, 'login.html')
 
     return render(request, 'Sign_up_guard.html')
