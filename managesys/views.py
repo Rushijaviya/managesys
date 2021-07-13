@@ -82,13 +82,13 @@ def message_view(request, sender, receiver):
 
 
 def login(request):
-    con=psycopg2.connect(user="managesys",password="managesys",database="socman")
+    con=psycopg2.connect(host="managesys.herokuapp.com",user="managesys",password="managesys",database="socman")
     cursor=con.cursor()
-    con2=psycopg2.connect(user="managesys",password="managesys",database="socman")
+    con2=psycopg2.connect(host="managesys.herokuapp.com",user="managesys",password="managesys",database="socman")
     cursor2=con2.cursor()
-    con3=psycopg2.connect(user="managesys",password="managesys",database="socman")
+    con3=psycopg2.connect(host="managesys.herokuapp.com",user="managesys",password="managesys",database="socman")
     cursor3=con3.cursor()
-    con4=psycopg2.connect(user="managesys",password="managesys",database="socman")
+    con4=psycopg2.connect(host="managesys.herokuapp.com",user="managesys",password="managesys",database="socman")
     cursor4=con4.cursor()
     sqlcmd="SELECT uname FROM manageapp_user_reg"
     sqlcmd2="SELECT password FROM manageapp_user_reg"
